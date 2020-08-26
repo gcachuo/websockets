@@ -1,0 +1,19 @@
+{
+  "project": {
+    "name": "WebSockets",
+    "code": "websockets"
+  },
+  "database": {
+    "host": "",
+    "username": "",
+    "passwd": "",
+    "dbname": ""
+  },
+  "email": {
+    "name": "",
+    "username": "",
+    "password": "",
+    "host": "smtp.gmail.com",
+    "port": "465"
+  }
+}

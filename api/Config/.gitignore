@@ -1,0 +1,4 @@
+.jwt_key
+database.json
+*.json
+!default.json
