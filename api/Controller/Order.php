@@ -18,18 +18,10 @@ class Order extends Controller
         ]);
     }
 
-    protected function updatestatus()
+    protected function updatestatus($order_id)
     {
         global $_PATCH;
-        $notifications = new Notifications();
-        Socket::triggerEvent(
-            'orderOnStatusChange',
-            [
-                'order' => [
-                    'order_id' => 10,
-                    'status' => $_PATCH['status']
-                ]
-            ]
-        );
+        $order = ['order_id' => $order_id, 'status' => $_PATCH['status']];
+        return compact('order');
     }
 }
