@@ -3,26 +3,31 @@
 namespace Controller;
 
 use Controller;
-use CoreException;
 use Exception;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+use SplObjectStorage;
 
 class Notifications extends Controller implements MessageComponentInterface
 {
+    protected $connections;
+
     public function __construct()
     {
+        $this->connections = new SplObjectStorage;
         parent::__construct([]);
     }
 
     public function onOpen(ConnectionInterface $conn)
     {
-        echo 'new connection';
+        echo 'new connection' . PHP_EOL;
+        $conn->send('Welcome!');
+        $this->connections->attach($conn);
     }
 
     function onClose(ConnectionInterface $conn)
     {
-        // TODO: Implement onClose() method.
+        $this->connections->detach($conn);
     }
 
     function onError(ConnectionInterface $conn, Exception $e)
@@ -32,6 +37,12 @@ class Notifications extends Controller implements MessageComponentInterface
 
     function onMessage(ConnectionInterface $from, $msg)
     {
-        throw new CoreException($msg, 200);
+        echo $msg . PHP_EOL;
+        foreach ($this->connections as $client) {
+            if ($from !== $client) {
+                // The sender is not the receiver, send to each client connected
+                $client->send($msg);
+            }
+        }
     }
 }

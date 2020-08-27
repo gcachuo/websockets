@@ -7,9 +7,10 @@
         console.log('Connection successfully opened');
         ws.send('Hello Me!');
     };
-    ws.onmessage = function (msg) {
+    ws.onmessage = function (data) {
         // Handle received data
-        console.log(msg);
+        const {data: message} = data;
+        console.info(message);
     };
     ws.onclose = function (msg) {
         // Logic for closed connection
