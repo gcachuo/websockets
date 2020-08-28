@@ -56,5 +56,20 @@
     function orderOnStatusChange({order}) {
         const {order_id, status} = order;
         toastr.success(`Order #${order_id} has changed to status "${status}"`);
+        desktopNotification('Hi there!', "Title");
+    }
+
+    function desktopNotification(body, title) {
+        if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            var notification = new Notification(title, {body: body});
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                    var notification = new Notification(title, {body: body});
+                }
+            });
+        }
     }
 </script>
