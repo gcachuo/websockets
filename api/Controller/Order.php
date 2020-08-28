@@ -5,6 +5,7 @@ namespace Controller;
 
 
 use Controller;
+use CoreException;
 use Socket;
 
 class Order extends Controller
@@ -23,9 +24,13 @@ class Order extends Controller
         global $_PATCH;
         $order = ['order_id' => $order_id, 'status' => $_PATCH['status']];
 
-        $socket = new Socket\Order();
-        $socket->setOrder($order);
-        $socket->orderOnStatusChange();
+        try {
+            $socket = new Socket\Order();
+            $socket->setOrder($order);
+            $socket->orderOnStatusChange();
+        } catch (CoreException $exception) {
+            //Skip error
+        }
 
         return compact('order');
     }
