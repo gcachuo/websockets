@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script>
     $(() => {
-        ws = new WebSocket('ws://localhost/websockets/api/websocket/notifications');
+        ws = new WebSocket('ws://localhost:8080/notifications');
         ws.onopen = function (msg) {
             // Logic for opened connection
             console.log('Connection successfully opened');
