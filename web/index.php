@@ -1,6 +1,6 @@
 <?php
 ?>
-<button id="btn-send-event">Send event</button>
+<button id="btn-send-event">Change status</button>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -43,11 +43,10 @@
                 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTg1NTE0ODIsImRhdGEiOnsiaWQiOjEsImxvZ2luIjoiY2FjaHUifX0.Mx-oZuvyAXVQgQITOGPFITt0BiEAZKN7rtK2cZpzhoU",
                 "status": "Pending"
             }
-        })
-        //     .done(({data: {order}}) => {
-        //     ws.send(JSON.stringify(['orderOnStatusChange', {order}]));
-        // })
-        ;
+        }).fail(({responseJSON: {response: {message}}}) => {
+            console.error(message)
+            toastr.error(message);
+        });
     });
 
     function message({message}) {

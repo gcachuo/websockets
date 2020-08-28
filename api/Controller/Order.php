@@ -6,6 +6,7 @@ namespace Controller;
 
 use Controller;
 use Socket;
+use WebSocket\Client;
 
 class Order extends Controller
 {
@@ -22,6 +23,9 @@ class Order extends Controller
     {
         global $_PATCH;
         $order = ['order_id' => $order_id, 'status' => $_PATCH['status']];
+
+        Socket::send_message("orderOnStatusChange", ['order' => $order]);
+
         return compact('order');
     }
 }

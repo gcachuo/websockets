@@ -15,5 +15,8 @@
     "password": "",
     "host": "smtp.gmail.com",
     "port": "465"
+  },
+  "websockets": {
+    "url": "ws://localhost:8080/notifications"
   }
 }
